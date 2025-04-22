@@ -9,7 +9,7 @@ dependencies:
 - current_identifier: null
   type: marketplace
   value:
-    marketplace_plugin_unique_identifier: langgenius/openrouter:0.0.7@c7d9867337da290e42a09410d8a51a797351d354e199bac0cb16046d927a283c
+    marketplace_plugin_unique_identifier: langgenius/openai:0.0.19@6b2b2e115b1b9d34a63eb26fadcc33d74330fd2ec06071bb30b8a24b1fab107a
 kind: app
 version: 0.1.5
 workflow:
@@ -124,8 +124,8 @@ workflow:
         model:
           completion_params: {}
           mode: chat
-          name: openai/gpt-4.1
-          provider: langgenius/openrouter/openrouter
+          name: gpt-4.1
+          provider: langgenius/openai/openai
         prompt_template:
         - id: 71e5a7db-a57f-4055-ac23-c7014afcaa68
           role: system
@@ -158,10 +158,10 @@ workflow:
       id: '1744961941564'
       position:
         x: 790.3995644303548
-        y: 258.71427374808667
+        y: 260.3714189984693
       positionAbsolute:
         x: 790.3995644303548
-        y: 258.71427374808667
+        y: 260.3714189984693
       selected: true
       sourcePosition: right
       targetPosition: left
@@ -191,6 +191,6 @@ workflow:
       type: custom
       width: 244
     viewport:
-      x: 171.9668401732041
-      y: 301.7244098379708
+      x: -360.03315982679567
+      y: 267.7244098379708
       zoom: 0.6034474043654781
