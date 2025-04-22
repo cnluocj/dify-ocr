@@ -1,0 +1,196 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: ocr
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openrouter:0.0.7@c7d9867337da290e42a09410d8a51a797351d354e199bac0cb16046d927a283c
+kind: app
+version: 0.1.5
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 150
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: end
+      id: 1744961941564-source-1744962210036-target
+      selected: false
+      source: '1744961941564'
+      sourceHandle: source
+      target: '1744962210036'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1744961938056-source-1744961941564-target
+      source: '1744961938056'
+      sourceHandle: source
+      target: '1744961941564'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - image
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: 图片
+          max_length: 48
+          options: []
+          required: true
+          type: file
+          variable: image
+      height: 90
+      id: '1744961938056'
+      position:
+        x: 99.5673282554946
+        y: 267
+      positionAbsolute:
+        x: 99.5673282554946
+        y: 267
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params: {}
+          mode: chat
+          name: openai/gpt-4.1
+          provider: langgenius/openrouter/openrouter
+        prompt_template:
+        - id: 71e5a7db-a57f-4055-ac23-c7014afcaa68
+          role: system
+          text: "```xml\n<instructions>\n请根据以下要求完成图片中文字和公式的识别与还原任务：\n\n1. 仔细观察图片中的所有文字和公式，确保内容完整、准确无误地识别出来。\n\
+            2. 保持图片中的文字排版格式，包括换行、空格、上下标、分数线、括号等特殊符号的位置和样式，严格还原原始排版。\n3. 对于公式部分，需准确还原所有数学符号（如上下标、分数、根号、积分、求和等），并尽量保持与图片中一致的结构和层次。\n\
+            4. 文字内容必须逐字识别，不得遗漏、增添或错误。\n5. 输出内容时，禁止包含任何XML标签或格式代码，仅以纯文本形式输出。\n6. 如果图片中有多行文字或公式，输出时也应保持相同的行数和顺序，确保与图片一致。\n\
+            7. 对于难以辨认的符号或文字，应结合上下文进行合理推断，确保整体表达通顺且符合数学规范。\n8. 公式内容需转化为markdown可识别并展示的latex格式。具体要求如下：\n\
+            \   - 公式用双美元符号 $$latex$$ 包裹，绝不能使用单个美元符号。\n   - 若公式与文字在同一行，则保持原有排版，不要添加换行符。例如：文字\
+            \ $$latex$$ 文字。\n   - 若公式单独成行或需要换行，则使用如下格式：\n     $$\n     latex\n   \
+            \  $$\n   - 千万要记得是双 $，不要是单个 $。\n9. 输出内容必须与图片格式高度一致，便于后续使用和阅读。\n10. 输出时不得包含任何XML标签或格式代码，仅输出纯文本内容。\n\
+            \n请严格按照上述步骤完成识别与还原任务，确保输出内容与图片格式高度一致。\n</instructions>\n\n<examples>\n\
+            <example>\n<example_input>\n图片内容如下：\n已知函数\nf(x) = x^2 + 2x + 1\n求 f(1)\
+            \ 的值。\n</example_input>\n<example_output>\n已知函数\n$$\nf(x) = x^2 + 2x +\
+            \ 1\n$$\n求 $$f(1)$$ 的值。\n</example_output>\n\n<example_input>\n图片内容如下：\n\
+            已知函数 f(x) = x^2 + 2x + 1\n求 f(1) 的值。\n</example_input>\n<example_output>\n\
+            已知函数 $$f(x) = x^2 + 2x + 1$$\n求 $$f(1)$$ 的值。\n</example_output>\n</example>\n\
+            \n"
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+            variable_selector:
+            - '1744961938056'
+            - image
+          enabled: true
+      height: 90
+      id: '1744961941564'
+      position:
+        x: 790.3995644303548
+        y: 258.71427374808667
+      positionAbsolute:
+        x: 790.3995644303548
+        y: 258.71427374808667
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1744961941564'
+          - text
+          variable: text
+        selected: false
+        title: 结束
+        type: end
+      height: 90
+      id: '1744962210036'
+      position:
+        x: 1396
+        y: 267
+      positionAbsolute:
+        x: 1396
+        y: 267
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 171.9668401732041
+      y: 301.7244098379708
+      zoom: 0.6034474043654781
